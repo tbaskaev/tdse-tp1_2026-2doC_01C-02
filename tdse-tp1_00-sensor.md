@@ -12,3 +12,17 @@ Definimos las siguientes acciones, `tick = DEL_BTN_50MS`, `tick--` y las señale
 Le asignamos a la variable `tick` un valor temporal delay igual a 50ms. Esto nos asegura, cuando tick sea igual a 0ms, que el botón se haya apretado realmente y evitar errores por ruido.
 ### Señales `EV_SYS_UP` y `EV_SYS_DOWN
 Las dos señales que le confirman al sistema el estado del botón.
+
+## Sensor Statechart - State Transition Table
+| Current State | Event | [Guard] | Next State | Actions |
+| :------------: | :----: | :------: | :--------: | :-------: |
+| ST_BTN_UP | EV_BTN_UP | x | - | - |
+| ST_BTN_UP | EV_BTN_DOWN | x | ST_BTN_FALLING | `tick = DEL_BTN_50MS` |
+| ST_BTN_FALLING | x | `tick > 0` | - | `tick--` |
+| ST_BTN_FALLING | EV_BTN_UP | `tick == 0` | ST_BTN_UP | - |
+| ST_BTN_FALLING | EV_BTN_DOWN | `tick == 0` | ST_BTN_DOWN | EV_SYS_DOWN |
+| ST_BTN_DOWN | EV_BTN_DOWN | x | - | - |
+| ST_BTN_DOWN | EV_BTN_UP | x | ST_BTN_RISING | `tick = DEL_BTN_50MS` |
+| ST_BTN_RISING | x | `tick > 0` | - | `tick--` |
+| ST_BTN_RISING | EV_BTN_DOWN | `tick == 0` | ST_BTN_DOWN | - |
+| ST_BTN_RISING | EV_BTN_UP | `tick == 0` | ST_BTN_UP | EV_SYS_UP |
