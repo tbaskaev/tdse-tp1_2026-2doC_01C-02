@@ -18,11 +18,11 @@ Simula el tiempo de apertura y cierre de la barrera.
 | :------------: | :----: | :------: | :--------: | :-------: |
 | ST_CLOSED | EV_ACT_CLOSE | x | - | - |
 | ST_CLOSED | EV_ACT_OPEN | x | ST_OPENING | ACT_LED_FBLINK, `led_tick = DEL_LED_1000MS` |
-| ST_OPENING | EV_ACT_OPEN | `led_tick > 0` | ST_OPENING | ACT_LED_FBLINK, `led_tick--` |
-| ST_OPENING | EV_ACT_OPEN | `led_tick == 0` | ST_OPEN | ACT_LED_ON |
+| ST_OPENING | x | `led_tick > 0` | ST_OPENING | `led_tick--` |
+| ST_OPENING | x | `led_tick == 0` | ST_OPEN | ACT_LED_ON |
 | ST_OPENING | EV_ACT_CLOSE | x | ST_CLOSING | `led_tick = DEL_LED_1000MS - led_tick`, ACT_LED_SBLINK |
 | ST_OPEN | EV_ACT_OPEN | x | - | - |
 | ST_OPEN | EV_ACT_CLOSE | x | ST_CLOSING | ACT_LED_SBLINK, `led_tick = DEL_LED_1000MS` |
-| ST_CLOSING | EV_ACT_CLOSE | `led_tick > 0` | - | ACT_LED_SBLINK, `led_tick--` |
-| ST_CLOSING | EV_ACT_CLOSE | `led_tick == 0` | ST_CLOSE | ACT_LED_OFF |
+| ST_CLOSING | x | `led_tick > 0` | - | `led_tick--` |
+| ST_CLOSING | x | `led_tick == 0` | ST_CLOSED | ACT_LED_OFF |
 | ST_CLOSING | EV_ACT_OPEN | x | ST_OPENING | `led_tick = DEL_LED_1000MS - led_tick`, ACT_LED_FBLINK |
