@@ -18,6 +18,6 @@ Son las acciones para esperar 5 segundos antes de ir al `ST_SLEEP`.
 | :------------: | :----: | :------: | :--------: | :-------: |
 | ST_SLEEP | EV_SYS_UP | x | - | - |
 | ST_SLEEP | EV_SYS_DOWN | x | ST_AWAKE | `EV_ACT_OPEN`, `timer = DEL_SYS_5000MS` |
-| ST_AWAKE | EV_SYS_UP | `timer > 0` | - | `timer--` |
+| ST_AWAKE | x | `timer > 0` | - | `timer--` |
 | ST_AWAKE | EV_SYS_UP | `timer == 0` | ST_SLEEP | `EV_ACT_CLOSE` |
 | ST_AWAKE | EV_SYS_DOWN | x | - | `timer = DEL_SYS_5000MS` |
